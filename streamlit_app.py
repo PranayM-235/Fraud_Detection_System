@@ -172,10 +172,10 @@ try:
 
     if "prediction" in result:
 
-        prediction = result["prediction"]
-        fraud_prob = result["fraud_probability"]
+     prediction = result["prediction"]
+     fraud_prob = result["fraud_probability"]
 
-        st.subheader("📊 Prediction Result")
+     st.subheader("📊 Prediction Result")
 
     if prediction == 1:
         st.error("🚨 Fraudulent Transaction Detected")
@@ -187,7 +187,7 @@ try:
         value=f"{fraud_prob:.6f}"
     )
     
-    st.error("Prediction key not found in API response")
+
 
 except Exception as e:
  st.error(f"Error: {e}")
