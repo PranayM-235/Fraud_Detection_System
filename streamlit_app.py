@@ -155,34 +155,42 @@ if st.button("🚀 Predict Fraud"):
         "transaction_time": "2024-05-01 12:00:00"
     }
 
-    # Replace with your Render API URL
+    # YOUR RENDER API URL
     url = "https://fraud-detection-system-r6n1.onrender.com/predict"
 
-    try:
+try:
 
-        with st.spinner("Analyzing transaction..."):
+    with st.spinner("Analyzing transaction..."):
 
-            response = requests.post(url, json=payload)
+           response = requests.post(url, json=payload)
 
-            result = response.json()
+    st.write("Status Code:", response.status_code)
 
-            prediction = result["prediction"]
-            fraud_prob = result["fraud_probability"]
+    result = response.json()
+
+    st.write("📦 API Response:", result)
+
+    if "prediction" in result:
+
+        prediction = result["prediction"]
+        fraud_prob = result["fraud_probability"]
 
         st.subheader("📊 Prediction Result")
 
-        if prediction == 1:
-            st.error("🚨 Fraudulent Transaction Detected")
-        else:
-            st.success("✅ Normal Transaction")
+    if prediction == 1:
+        st.error("🚨 Fraudulent Transaction Detected")
+    else:
+        st.success("✅ Normal Transaction")
 
-        st.metric(
-            label="Fraud Probability",
-            value=f"{fraud_prob:.6f}"
-        )
+    st.metric(
+        label="Fraud Probability",
+        value=f"{fraud_prob:.6f}"
+    )
+    
+    st.error("Prediction key not found in API response")
 
-    except Exception as e:
-        st.error(f"Error: {e}")
+except Exception as e:
+ st.error(f"Error: {e}")
 
 # -----------------------------------
 # FOOTER
